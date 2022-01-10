@@ -29,6 +29,10 @@ namespace Zadanie_praktyczne_Akcje
 {
     public class Startup
     {
+        /// <summary>
+        /// Constructor of this class
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
