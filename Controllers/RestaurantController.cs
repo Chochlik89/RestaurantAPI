@@ -47,6 +47,11 @@ namespace RestaurantAPI.Controllers
             
         }
 
+        /// <summary>
+        /// Delete by Id action
+        /// </summary>
+        /// <param name="id">Restaurant Id</param>
+        /// <returns>Action result</returns>
         [HttpDelete("{id}")]
         public ActionResult Delete([FromRoute] int id)
         {
