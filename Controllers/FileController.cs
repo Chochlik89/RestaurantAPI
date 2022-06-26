@@ -7,7 +7,7 @@ using System.IO;
 namespace RestaurantAPI.Controllers
 {
     [Route("file")]
-    //[Authorize] // od 53 lekcji
+    [Authorize]
     public class FileController : ControllerBase
     {
         [HttpGet]

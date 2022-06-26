@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RestaurantAPI.Entities;
 using RestaurantAPI.Models;
 using RestaurantAPI.Services;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace RestaurantAPI.Controllers
 {
@@ -28,14 +22,7 @@ namespace RestaurantAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult Modify([FromRoute] int id, [FromBody] ModifyRestaurantDto dto)
         {
-            //Zadanie praktyczne: Modyfikacja encji
-
-            //if (!ModelState.IsValid) //o tym zapomniałam, a w dalszej części kursu ten fragment kodu zostaje usunięty po dopisaniu atrybutu ApiController
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            
-            if (_restaurantService.GetById(id) is null) //powinnam to sprawdzić wewnątrz metody
+            if (_restaurantService.GetById(id) is null)
             {
                 return NotFound();
             }
@@ -44,7 +31,6 @@ namespace RestaurantAPI.Controllers
                 _restaurantService.Modify(id, dto);
                 return Ok();
             }
-            
         }
 
         /// <summary>
@@ -62,7 +48,6 @@ namespace RestaurantAPI.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin,Manager")]
-        //[Authorize(Roles = "Manager")] //dwa parametry to BŁĄD
         public  ActionResult CreateRestaurant([FromBody] CreateRestaurantDto dto)
         {
             var userId = int.Parse(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value);
@@ -74,11 +59,9 @@ namespace RestaurantAPI.Controllers
         [HttpGet]
         //[Authorize(Policy = "AtLeast20")]
         //[Authorize(Policy = "AtLeastTwoRestaurantCreated")]
-        [AllowAnonymous] // od 45 lekcji
-
+        [AllowAnonymous]
         public ActionResult<IEnumerable<RestaurantDto>> GetAll([FromQuery]RestaurantQuery query)
         {
-
             var restaurantsDtos = _restaurantService.GetAll(query);
 
             return Ok(restaurantsDtos);
@@ -88,7 +71,6 @@ namespace RestaurantAPI.Controllers
         [AllowAnonymous]
         public ActionResult<RestaurantDto> Get([FromRoute] int id)
         {
-
             var restaurant = _restaurantService.GetById(id);
 
             return Ok(restaurant);

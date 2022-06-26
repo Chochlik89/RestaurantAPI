@@ -1,17 +1,14 @@
-﻿using RestaurantAPI.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using RestaurantAPI.Authorization;
+using RestaurantAPI.Entities;
+using RestaurantAPI.Exceptions;
+using RestaurantAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using RestaurantAPI.Entities;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using Microsoft.Extensions.Logging;
-using RestaurantAPI.Exceptions;
-using System.Threading;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using RestaurantAPI.Authorization;
 using System.Linq.Expressions;
 
 namespace RestaurantAPI.Services
@@ -45,18 +42,11 @@ namespace RestaurantAPI.Services
 
         public void Modify(int id, ModifyRestaurantDto dto)
         {
-            //Zadanie praktyczne: Modyfikacja encji
-
             var restaurant = _dbContext
                 .Restaurants
                 .FirstOrDefault(r => r.Id == id);
 
-            //if (restaurant is null)
-            //{
-            //   return;
-            //}
-
-            if (restaurant is null) //wymagane w dalszej części kursu
+            if (restaurant is null)
                 throw new DllNotFoundException("Restaurant not found");
 
             var authorizationResult = _authorizationService.AuthorizeAsync(_userContextService.User, restaurant,

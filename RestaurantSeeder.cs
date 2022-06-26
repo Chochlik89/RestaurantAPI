@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantAPI.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using RestaurantAPI.Entities;
 
 namespace RestaurantAPI
 {
@@ -16,7 +14,7 @@ namespace RestaurantAPI
         }
         public void Seed()
         {
-            if (_dbContext.Database.CanConnect()) //sprawdzenie połączenia z bazą danych
+            if (_dbContext.Database.CanConnect())
             {
                 var pendingMigrations = _dbContext.Database.GetPendingMigrations();
                 if (pendingMigrations != null && pendingMigrations.Any())
@@ -31,7 +29,7 @@ namespace RestaurantAPI
                     _dbContext.SaveChanges();
                 }
 
-                if (!_dbContext.Restaurants.Any()) //sprawdzenie czy tabela jest pusta
+                if (!_dbContext.Restaurants.Any())
                 {
                     var restaurants = GetRestaurants();
                     _dbContext.Restaurants.AddRange(restaurants);

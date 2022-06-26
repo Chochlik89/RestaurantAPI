@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RestaurantAPI.Entities
+﻿namespace RestaurantAPI.Entities
 {
     public class Dish
     {
@@ -14,6 +9,5 @@ namespace RestaurantAPI.Entities
 
         public int RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
-
     }
 }

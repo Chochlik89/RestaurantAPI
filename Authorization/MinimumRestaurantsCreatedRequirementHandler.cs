@@ -14,18 +14,14 @@ namespace RestaurantAPI.Authorization
             _dbContext = dbContext;
         }
 
-
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimumRestaurantsCreatedRequirement requirement)
         {
-
             var userId = int.Parse(context.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
             var restaurantsCreatedCount = _dbContext
                .Restaurants
                .Where(x => x.CreatedById == userId)
                .Count();
-            //.Count(r => r.CreatedById == userId);
-
 
             if (restaurantsCreatedCount >= requirement.MinimumRestaurantCreated)
             {
@@ -33,7 +29,6 @@ namespace RestaurantAPI.Authorization
             }
 
             return Task.CompletedTask;
-
         }
     }
 }

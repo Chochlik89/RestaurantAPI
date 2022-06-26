@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RestaurantAPI.Models
 {
@@ -14,6 +10,5 @@ namespace RestaurantAPI.Models
         public decimal Price { get; set; }
 
         public int RestaurantId { get; set; }
-
     }
 }

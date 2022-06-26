@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using RestaurantAPI.Exceptions;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RestaurantAPI.Middleware
@@ -16,13 +13,10 @@ namespace RestaurantAPI.Middleware
         public RequestTimeMiddleware(ILogger<RequestTimeMiddleware> logger)
         {
             _timer = new Stopwatch();
-            
             _logger = logger;
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-
-            //var timer = new Stopwatch(); //obiekt utworzyć w konstruktorze
             _timer.Start();
 
             await next.Invoke(context);

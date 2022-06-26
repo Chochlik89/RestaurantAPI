@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Logging;
 using RestaurantAPI.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RestaurantAPI.Middleware
@@ -24,6 +22,7 @@ namespace RestaurantAPI.Middleware
             catch (ForbidException forbidException)
             {
                 context.Response.StatusCode = 403;
+                await context.Response.WriteAsync(forbidException.Message);
             }
             catch (BadRequestException badRequestException)
             {
